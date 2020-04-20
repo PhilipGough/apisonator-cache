@@ -1,2 +1,14 @@
-github.com/3scale/3scale-go-client v0.4.0 h1:7iqeevJ9OqzmfEwWfMMU8jZ4uAQiwNYlBlquy4QamH0=
-github.com/3scale/3scale-go-client v0.4.0/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
+github.com/3scale/3scale-go-client v0.4.1-0.20200318112825-71833da7188f h1:2C1xY9IIzDeWKGBQ457oJt+Tm5+GTjxdVcLyPDLB2Lc=
+github.com/3scale/3scale-go-client v0.4.1-0.20200318112825-71833da7188f/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
+github.com/3scale/3scale-go-client v0.4.1-0.20200421095101-c20819f6e455 h1:FY9TG/bgaKr/AP6a642devgs9GqrzlMUePZG/WCp7iU=
+github.com/3scale/3scale-go-client v0.4.1-0.20200421095101-c20819f6e455/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
+github.com/3scale/3scale-go-client v0.4.1-0.20200421114227-7a07d148182c h1:hXrcWQoAlMhAYRLWEYYpoQBBVnr/DPCS6U+mE5sifH8=
+github.com/3scale/3scale-go-client v0.4.1-0.20200421114227-7a07d148182c/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
+github.com/3scale/3scale-go-client v0.4.1-0.20200422122532-65caa338b3b9 h1:NPlmDNaGnz6uWI/boXX2HdGHP261btMHjrRhSKbQOdA=
+github.com/3scale/3scale-go-client v0.4.1-0.20200422122532-65caa338b3b9/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
+github.com/3scale/3scale-istio-adapter v1.0.1-0.20200420120440-cc9496344ec9 h1:vFctUlynGWlDHWAZRv+wQMILyU1eEleznoI6P7LJzTU=
+github.com/3scale/3scale-istio-adapter v1.0.1-0.20200420120440-cc9496344ec9/go.mod h1:yxT2hspA7W3JCo46wyzKxxtTAx0xu+cGxVkZkSmu5Hw=
+github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6 h1:lNCW6THrCKBiJBpz8kbVGjC7MgdCGKwuvBgc7LoD6sw=
+github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6/go.mod h1:Lu3tH6HLW3feq74c2GC+jIMS/K2CFcDWnWD9XkenwhI=
+gopkg.in/oleiade/lane.v1 v1.0.0 h1:Xs7/GTdnZNGuuXV7z8gTrHoHEeHdCnhuNXm4n0UpxjY=
+gopkg.in/oleiade/lane.v1 v1.0.0/go.mod h1:e9mCiNjxfTGlkjxn/TPK3JUwhjKjby5cjXuGotH/QlE=

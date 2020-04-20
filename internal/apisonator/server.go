@@ -7,10 +7,12 @@ import (
 
 	"github.com/3scale/3scale-go-client/threescale"
 	"github.com/3scale/3scale-go-client/threescale/api"
+	"github.com/3scale/3scale-istio-adapter/pkg/threescale/backend"
 )
 
 type server struct {
-	router *http.ServeMux
+	router       *http.ServeMux
+	upstreamPeer threescale.Client
 }
 
 type authResponseXML struct {
@@ -20,12 +22,18 @@ type authResponseXML struct {
 	Code       string   `xml:"code,attr,omitempty"`
 }
 
-func newServer() *server {
+func newServer(upstream string) (*server, error) {
+	backend, err := backend.NewBackend(upstream, nil)
+	if err != nil {
+		return nil, err
+	}
+
 	s := &server{
-		router: http.NewServeMux(),
+		router:       http.NewServeMux(),
+		upstreamPeer: backend,
 	}
 	s.registerRoutes()
-	return s
+	return s, nil
 }
 
 func (s *server) registerRoutes() {
@@ -35,6 +43,8 @@ func (s *server) registerRoutes() {
 
 func (s *server) handleAuthorize() http.HandlerFunc {
 	return func(w http.ResponseWriter, request *http.Request) {
+		clientReq := convertRequest(request)
+
 		encoder := xml.NewEncoder(w)
 		resp := authResponseXML{
 			Authorized: true,
@@ -51,6 +61,7 @@ func (s *server) handleAuthorize() http.HandlerFunc {
 
 func (s *server) handleAuthRep() http.HandlerFunc {
 	return func(w http.ResponseWriter, request *http.Request) {
+		clientReq := convertRequest(request)
 		encoder := xml.NewEncoder(w)
 		resp := authResponseXML{
 			Authorized: true,
