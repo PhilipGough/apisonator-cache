@@ -4,6 +4,9 @@ import (
 	"encoding/xml"
 	"net/http"
 	"strconv"
+
+	"github.com/3scale/3scale-go-client/threescale"
+	"github.com/3scale/3scale-go-client/threescale/api"
 )
 
 type server struct {
@@ -59,5 +62,38 @@ func (s *server) handleAuthRep() http.HandlerFunc {
 			http.Error(w, "failed to encode to xml", http.StatusInternalServerError)
 			return
 		}
+	}
+}
+
+func convertRequest(request *http.Request) threescale.Request {
+	return threescale.Request{
+		Auth:    getClientAuthFromRequest(request),
+		Service: api.Service(request.URL.Query().Get("service_id")),
+		Transactions: []api.Transaction{
+			{
+				Metrics: nil,
+				Params: api.Params{
+					AppID:    request.URL.Query().Get("app_id"),
+					AppKey:   request.URL.Query().Get("app_key"),
+					Referrer: request.URL.Query().Get("referrer"),
+					UserID:   request.URL.Query().Get("user_id"),
+					UserKey:  request.URL.Query().Get("user_key"),
+				},
+			},
+		},
+	}
+
+}
+
+func getClientAuthFromRequest(request *http.Request) api.ClientAuth {
+	if value := request.URL.Query().Get("service_token"); value != "" {
+		return api.ClientAuth{
+			Type:  api.ServiceToken,
+			Value: value,
+		}
+	}
+	return api.ClientAuth{
+		Type:  api.ProviderKey,
+		Value: request.URL.Query().Get("provider_key"),
 	}
 }
