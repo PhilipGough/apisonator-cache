@@ -3,6 +3,9 @@ package apisonator
 import (
 	"net/http"
 	"net/url"
+	"regexp"
+	"strconv"
+	"strings"
 
 	"github.com/3scale/3scale-go-client/threescale"
 	"github.com/3scale/3scale-go-client/threescale/api"
@@ -87,14 +90,17 @@ func (s *Server) handleAuthRep() http.HandlerFunc {
 	}
 }
 
+// convertRequest returns a 3scale request from a http request
 func convertRequest(request *http.Request) threescale.Request {
-	values, _ := url.ParseQuery(request.URL.RawQuery)
+	q, _ := url.QueryUnescape(request.URL.RawQuery)
+	values, _ := url.ParseQuery(q)
+
 	return threescale.Request{
 		Auth:    getClientAuthFromRequest(values),
 		Service: api.Service(values.Get("service_id")),
 		Transactions: []api.Transaction{
 			{
-				Metrics: nil,
+				Metrics: parseMetricsFromValues(values),
 				Params: api.Params{
 					AppID:    values.Get("app_id"),
 					AppKey:   values.Get("app_key"),
@@ -119,4 +125,21 @@ func getClientAuthFromRequest(values url.Values) api.ClientAuth {
 		Type:  api.ProviderKey,
 		Value: values.Get("provider_key"),
 	}
+}
+
+var rgx = regexp.MustCompile(`\[(.*?)\]`)
+
+func parseMetricsFromValues(values url.Values) api.Metrics {
+	metrics := api.Metrics{}
+	for k, v := range values {
+		if strings.HasPrefix(k, "usage[") {
+			key := rgx.FindStringSubmatch(k)
+			if len(key) != 2 {
+				continue
+			}
+			intVal, _ := strconv.Atoi(v[0])
+			metrics.Add(key[1], intVal)
+		}
+	}
+	return metrics
 }
