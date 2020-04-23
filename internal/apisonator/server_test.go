@@ -55,6 +55,7 @@ func Test_handleAuthorize(t *testing.T) {
 								Params: api.Params{
 									AppID: application,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -86,6 +87,7 @@ func Test_handleAuthorize(t *testing.T) {
 								Params: api.Params{
 									UserKey: user,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -121,6 +123,7 @@ func Test_handleAuthorize(t *testing.T) {
 								Params: api.Params{
 									UserKey: user,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -177,6 +180,7 @@ func Test_handleAuthRep(t *testing.T) {
 								Params: api.Params{
 									AppID: application,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -208,6 +212,7 @@ func Test_handleAuthRep(t *testing.T) {
 								Params: api.Params{
 									UserKey: user,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -243,6 +248,7 @@ func Test_handleAuthRep(t *testing.T) {
 								Params: api.Params{
 									UserKey: user,
 								},
+								Metrics: api.Metrics{},
 							},
 						},
 					}
@@ -280,6 +286,38 @@ func TestNewServer(t *testing.T) {
 		t.Error("unexpected result from type assertion")
 	}
 
+}
+
+func Test_convertRequest(t *testing.T) {
+	const userKey = "1234"
+	encodedQuery := `service_token%3Dst%26service_id%3Dservice%26user_key%3D1234%26usage%5Bhits%5D%3D2%26usage%5Bmits%5D%3D3`
+	// decodes to service_token=st&service_id=service&user_key=1234&usage[hits]=2&usage[mits]=3
+	req := &http.Request{
+		URL: &url.URL{
+			RawQuery: encodedQuery,
+		},
+	}
+
+	expect := threescale.Request{
+		Auth: api.ClientAuth{
+			Type:  api.ServiceToken,
+			Value: serviceToken,
+		},
+		Service: service,
+		Transactions: []api.Transaction{
+			{
+				Metrics: api.Metrics{
+					"hits": 2,
+					"mits": 3,
+				},
+				Params: api.Params{
+					UserKey: userKey,
+				},
+			},
+		},
+	}
+	result := convertRequest(req)
+	equals(t, expect, result)
 }
 
 func newTestServer(t *testing.T, upstream *mockApisonator) *Server {
