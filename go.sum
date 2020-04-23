@@ -8,6 +8,8 @@ github.com/3scale/3scale-go-client v0.4.1-0.20200422122532-65caa338b3b9 h1:NPlmD
 github.com/3scale/3scale-go-client v0.4.1-0.20200422122532-65caa338b3b9/go.mod h1:mIpZ1swgfSBVN7JqvxtY0AC9QaLHmhGvGsP9P71ZilQ=
 github.com/3scale/3scale-istio-adapter v1.0.1-0.20200420120440-cc9496344ec9 h1:vFctUlynGWlDHWAZRv+wQMILyU1eEleznoI6P7LJzTU=
 github.com/3scale/3scale-istio-adapter v1.0.1-0.20200420120440-cc9496344ec9/go.mod h1:yxT2hspA7W3JCo46wyzKxxtTAx0xu+cGxVkZkSmu5Hw=
+github.com/3scale/3scale-istio-adapter v1.0.1-0.20200423155248-437cbfac138a h1:vVtYEpT0334mmJaFRbZC+OHFGEaYin6UbffuMifNnGA=
+github.com/3scale/3scale-istio-adapter v1.0.1-0.20200423155248-437cbfac138a/go.mod h1:yxT2hspA7W3JCo46wyzKxxtTAx0xu+cGxVkZkSmu5Hw=
 github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6 h1:lNCW6THrCKBiJBpz8kbVGjC7MgdCGKwuvBgc7LoD6sw=
 github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6/go.mod h1:Lu3tH6HLW3feq74c2GC+jIMS/K2CFcDWnWD9XkenwhI=
 gopkg.in/oleiade/lane.v1 v1.0.0 h1:Xs7/GTdnZNGuuXV7z8gTrHoHEeHdCnhuNXm4n0UpxjY=
