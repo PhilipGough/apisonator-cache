@@ -72,7 +72,7 @@ func (s *Server) handleAuthorize() http.HandlerFunc {
 func (s *Server) handleAuthRep() http.HandlerFunc {
 	return func(w http.ResponseWriter, request *http.Request) {
 		clientReq := convertRequest(request)
-		upstreamResp, err := s.upstreamPeer.Authorize(clientReq)
+		upstreamResp, err := s.upstreamPeer.AuthRep(clientReq)
 		if err != nil {
 			// using a generic bad gateway error here
 			http.Error(w, err.Error(), http.StatusBadGateway)
@@ -84,8 +84,8 @@ func (s *Server) handleAuthRep() http.HandlerFunc {
 			if statusCode == 0 {
 				statusCode = http.StatusNotImplemented
 			}
-			w.WriteHeader(statusCode)
 			w.Header().Set(rejectionHeader, upstreamResp.ErrorCode)
+			w.WriteHeader(statusCode)
 			return
 
 		}
