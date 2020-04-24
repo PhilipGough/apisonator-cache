@@ -5,7 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"net/url"
+
+	"github.com/philipgough/apisonator-cache/internal/apisonator"
 )
 
 const (
@@ -23,6 +26,22 @@ func main() {
 	if err := validateFlags(upstream); err != nil {
 		log.Fatal(err)
 	}
+
+	srv, err := apisonator.NewServer(upstream)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	go func() {
+		err = http.ListenAndServe(fmt.Sprintf(":%d", listenOnPort), srv)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+	done := make(chan bool)
+	log.Printf("Server listening on :%d", listenOnPort)
+	<-done
+
 }
 
 func validateFlags(upstream string) error {

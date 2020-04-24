@@ -36,6 +36,10 @@ func NewServer(upstream string) (*Server, error) {
 	return s, nil
 }
 
+func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	s.router.ServeHTTP(w, r)
+}
+
 func (s *Server) registerRoutes() {
 	s.router.HandleFunc("/transactions/authorize.xml", s.handleAuthorize())
 	s.router.HandleFunc("/transactions/authrep.xml", s.handleAuthRep())
@@ -55,8 +59,8 @@ func (s *Server) handleAuthorize() http.HandlerFunc {
 			if statusCode == 0 {
 				statusCode = http.StatusNotImplemented
 			}
-			w.WriteHeader(statusCode)
 			w.Header().Set(rejectionHeader, upstreamResp.ErrorCode)
+			w.WriteHeader(statusCode)
 			return
 
 		}
