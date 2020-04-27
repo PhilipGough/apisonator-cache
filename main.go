@@ -27,7 +27,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	srv, err := apisonator.NewServer(upstream)
+	stop := make(chan struct{})
+	srv, err := apisonator.NewServer(upstream, stop)
 	if err != nil {
 		log.Fatal(err)
 	}

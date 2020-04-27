@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/3scale/3scale-go-client/threescale"
 	"github.com/3scale/3scale-go-client/threescale/api"
@@ -22,11 +23,24 @@ type Server struct {
 	upstreamPeer threescale.Client
 }
 
-func NewServer(upstream string) (*Server, error) {
+func NewServer(upstream string, stop chan struct{}) (*Server, error) {
 	backend, err := backend.NewBackend(upstream, nil)
 	if err != nil {
 		return nil, err
 	}
+
+	ticker := time.NewTicker(time.Second * 15)
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				backend.Flush()
+			case <-stop:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
 
 	s := &Server{
 		router:       http.NewServeMux(),
