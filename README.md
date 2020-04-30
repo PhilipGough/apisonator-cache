@@ -27,3 +27,15 @@ The application takes two flags:
 
 To start the server locally and link it against 3scale SaaS backend you can do as follows:
 `go run main.go --upstream=https://su1.3scale.net`
+
+Now, you can start APIcast locally and give it your configuration. You will need to set the following fields to the location
+of the application started previously.
+
+``` 
+"backend": {
+    "endpoint": "http://localhost:3000",
+    "host": "localhost"
+}
+```
+
+Then follow the [instructions for running APIcast](https://github.com/3scale/APIcast#docker)
