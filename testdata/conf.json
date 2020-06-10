@@ -1,0 +1,77 @@
+{
+  "id": 1,
+  "services": [
+    {
+      "id": 2555417764324,
+      "backend_version": "1",
+      "backend_authentication_type": "service_token",
+      "backend_authentication_value": "fa8386cd0d2d9482d7aed835b0847bbb921287507915a50ebeb14f9fb169f435",
+      "proxy": {
+        "api_backend": "https://echo-api.3scale.net:443",
+        "auth_app_key": "app_key",
+        "auth_app_id": "app_id",
+        "auth_user_key": "user_key",
+        "credentials_location": "query",
+        "error_auth_failed": "Authentication failed",
+        "error_limits_exceeded": "Limits exceeded",
+        "error_auth_missing": "Authentication parameters missing",
+        "error_status_auth_failed": 403,
+        "error_headers_auth_failed": "text/plain; charset=us-ascii",
+        "error_status_limits_exceeded": 429,
+        "error_headers_limits_exceeded": "text/plan; charset=us-ascii",
+        "error_status_auth_missing": 403,
+        "error_headers_auth_missing": "text/plain; charset=us-ascii",
+        "error_no_match": "No Mapping Rule matched",
+        "error_status_no_match": 404,
+        "error_headers_no_match": "text/plain; charset=us-ascii",
+        "secret_token": "Shared_secret_sent_from_proxy_to_API_backend",
+        "hostname_rewrite": null,
+        "oauth_login_url": null,
+        "hosts": [
+          "localhost",
+          "127.0.0.1"
+        ],
+        "backend": {
+          "endpoint": "http://docker.for.mac.host.internal:3000",
+          "host": "docker.for.mac.host.internal"
+        },
+        "proxy_rules": [
+          {
+            "id": 481727,
+            "proxy_id": 110538,
+            "http_method": "GET",
+            "pattern": "/productpage",
+            "metric_id": 2555418138963,
+            "metric_system_name": "hits",
+            "delta": 1,
+            "tenant_id": 2445582571513,
+            "created_at": "2019-06-07T09:10:01Z",
+            "updated_at": "2019-09-16T11:29:21Z",
+            "redirect_url": null,
+            "position": 1,
+            "last": false,
+            "owner_id": 110538,
+            "owner_type": "Proxy"
+          },
+          {
+            "id": 547704,
+            "proxy_id": 110538,
+            "http_method": "GET",
+            "pattern": "/get",
+            "metric_id": 2555418138963,
+            "metric_system_name": "hits",
+            "delta": 1,
+            "tenant_id": 2445582571513,
+            "created_at": "2019-12-18T16:40:59Z",
+            "updated_at": "2019-12-18T16:57:08Z",
+            "redirect_url": null,
+            "position": 2,
+            "last": false,
+            "owner_id": 110538,
+            "owner_type": "Proxy"
+          }
+        ]
+      }
+    }
+  ]
+}
